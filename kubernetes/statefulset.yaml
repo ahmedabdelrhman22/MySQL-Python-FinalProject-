@@ -13,7 +13,7 @@ spec:
       labels:
         app: mysql
     spec:
-      terminationGracePeriodSeconds: 10
+      terminationGracePeriodSeconds: 15
       containers:
         - name: mysql
           image: mysql:5.6
@@ -22,11 +22,16 @@ spec:
               protocol: TCP
               containerPort: 3306
           env:
+            - name: root_user
+              valueFrom:
+               secretKeyRef:
+                name: secrets
+                key: root_user
             - name: root_password
-              valueFrom: 
-               secretKeyRef: 
+              valueFrom:
+               secretKeyRef:
+                name: secrets
                 key: root_password
-                name: mysecret
           volumeMounts:
             - name: data
               mountPath: /var/lib/mysql
