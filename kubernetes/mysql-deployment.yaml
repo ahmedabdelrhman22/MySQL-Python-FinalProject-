@@ -23,7 +23,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: secrets
-              key: root_password
+              key: root_user
         - name: root_password
           valueFrom:
             secretKeyRef:
