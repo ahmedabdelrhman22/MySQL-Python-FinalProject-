@@ -1,0 +1,92 @@
+- name: Install apt
+  apt:
+    name: aptitude
+    state: latest
+    update_cache: true
+
+- name: Install packages
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+    state: latest
+    update_cache: true
+
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu focal stable
+    state: present
+
+- name: Update and install docker-ce
+  apt:
+    name: docker-ce
+    state: latest
+    update_cache: true
+
+- name: Add Ubuntu user to docker group
+  user:
+    name: "ubuntu"
+    groups: ["docker"]
+    append: yes
+  tags:
+    - docker
+
+- name: Check permission of docker.sock
+  file: 
+    path: /var/run/docker.sock
+    mode: '777'
+
+- name: Download jenkins repository
+  apt_key:
+    url: "{{jenkins.repo_URL}}"
+    state: present
+  become: yes
+    
+- name: Ensure the repository is configured
+  apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+  become: yes
+
+- name: Update cache
+  apt:
+    update_cache: yes
+    state: latest
+
+- name: Install java
+  apt :
+    name: "{{java}}"
+    state: present
+
+- name: Install jenkins
+  apt: 
+    name: jenkins
+    state: latest
+
+- name: Start jenkins
+  service:
+    name: jenkins
+    enabled: true
+    state:  started
+
+- name: Add jenkins user to docker group
+  user:
+    name: jenkins
+    groups: ["docker"]
+    append: yes
+
+- name: Display /var/lib/jenkins/secrets/initialAdminPassword contents
+  command: cat /var/lib/jenkins/secrets/initialAdminPassword 
+  register: command_output
+
+- name: Print password
+  debug:
+    msg: "the initial password = {{command_output.stdout}}"
