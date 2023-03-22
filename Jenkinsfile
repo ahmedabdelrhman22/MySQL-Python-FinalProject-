@@ -52,5 +52,14 @@ pipeline {
             }
         
         }
+        stage(' Apply Kuberentes files') {
+            steps {
+                withCredentials([string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY'), string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID')]) {
+                    sh'kubectl apply -f kubernetes/mysql-pv.yaml  -f kubernetes/mysql-pvc.yaml -f kubernetes/mysql-configmap.yaml -f kubernetes/mysql-service.yaml -f kubernetes/mysql-deployment.yaml -f kubernetes/statefulset.yaml -f kubernetes/secrets.yaml'
+                    sh'kubectl apply -f kubernetes/redis-deployment.yaml -f kubernetes/flask-python-service.yaml -f kubernetes/python-deployment.yaml'
+                    sh'kubectl apply -f kubernetes/Ingress.yaml'
+                }
+            }
+        }
     }
 }
