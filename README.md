@@ -3,7 +3,7 @@ MySQL-and-Python
 
 Flask app https://github.com/uym2/MySQL-and-Python deployed on AWS by using EKS and ECR By using terraform will create EKS , ECR , EC2 (act as Jenkins) By anible will deploy jenkins installation , docker , aws cli , Kubectl .... Kuberentes to trigger all files (deplyment , statefullset , confige map , vp , vpc .....)
 
-# Terraform
+# Terraform-
 
     EKS
     EC2
@@ -12,7 +12,7 @@ Flask app https://github.com/uym2/MySQL-and-Python deployed on AWS by using EKS 
 - terraform init
 - terraform apply
 
-# Ansible
+# Ansible-
 
     Install Jenkins
     Configure Jenkins access
@@ -20,7 +20,7 @@ Flask app https://github.com/uym2/MySQL-and-Python deployed on AWS by using EKS 
 
 - anible-playbook -i Inventory-name --private-key key-name playbook.yml
 
-# apply Kuberentes Mainfest
+# apply Kuberentes Mainfest-
 
 kubectl apply -f [all mainfest ]
 
@@ -38,7 +38,7 @@ docker tag flask-app:latest public.ecr.aws/y1x1a8h4/flask-app:latest
 
 docker push public.ecr.aws/y1x1a8h4/flask-app:latest
 
-# Jenkins
+# Jenkins-
 
     add credential Dashboard > Manage Jenkins > Credentials > system > Global credentials (unrestricted) + Add Credentials
     add (secert key , access key ,...)
