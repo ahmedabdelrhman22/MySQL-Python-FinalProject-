@@ -14,7 +14,7 @@ Flask app https://github.com/uym2/MySQL-and-Python deployed on AWS by using EKS 
     Configure Jenkins access
     Install dependence (Docker , aws cli , Kubectl ,.....)
 
-- ansible-playbook -i Inventory-name --private-key key-name playbook.yml
+- ansible-playbook -i Inventory-name --private-key key-name main.yaml
 
 # apply Kuberentes Mainfest
 
