@@ -5,10 +5,6 @@ Flask app https://github.com/uym2/MySQL-and-Python deployed on AWS by using EKS 
 
 # Terraform
 
-    EKS
-    EC2
-    ECR
-
 - terraform init
 - terraform apply
 
