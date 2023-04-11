@@ -20,10 +20,6 @@ Flask app https://github.com/uym2/MySQL-and-Python deployed on AWS by using EKS 
 
 kubectl apply -f [all mainfest ]
 
--log in EKS
-
-aws eks --region example_region update-kubeconfig --name cluster_name
-
 -log in ECR and push images
 
 aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/flask-app
